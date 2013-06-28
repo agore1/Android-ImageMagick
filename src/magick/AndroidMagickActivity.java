@@ -42,7 +42,7 @@ public class AndroidMagickActivity extends Activity {
 		
 		try {
 			final MagickImage img = new MagickImage(new ImageInfo(
-					"/sdcard/1.jpg"));
+					"/sdcard/imagemagick_test/1.jpg"));
 
 			/*
 			 * ImageView iv = new ImageView(this);
@@ -86,7 +86,7 @@ public class AndroidMagickActivity extends Activity {
 		int count = 3;
 		MagickImage images[] = new MagickImage[count];
 		for (int i = 0; i < count; i++) {
-			String path = "/sdcard/" + String.valueOf(i + 1) + ".jpg";
+			String path = "/sdcard/imagemagick_test/" + String.valueOf(i + 1) + ".jpg";
 			try {
 				images[i] = new MagickImage(new ImageInfo(path));
 			} catch (MagickException e) {
@@ -106,7 +106,7 @@ public class AndroidMagickActivity extends Activity {
 			FileOutputStream fos = new FileOutputStream(fn);
 			fos.write(blob);
 			fos.close();
-			FileOutputStream testOS = new FileOutputStream("/mnt/sdcard/test.txt");
+			FileOutputStream testOS = new FileOutputStream("/mnt/sdcard/imagemagick_test/test.txt");
 			testOS.write("abc".getBytes());
 			testOS.close();
 		} catch (MagickException e) {
@@ -152,6 +152,7 @@ public class AndroidMagickActivity extends Activity {
 		}
 
 		public void run() {
+            Log.v("magick", "Starting an image processing thread");
 			int effect = 0;
 			AndroidMagickActivity.this.showDialog(PROGRESS_DIALOG);
 			switch (pos) {

@@ -57,6 +57,7 @@ LOCAL_STATIC_LIBRARIES := \
 	libjpeg
 LOCAL_SHARED_LIBRARIES := \
 	libz
+LOCAL_LDLIBS += -L$(LOCAL_PATH)/../../lib -lz
 LOCAL_MODULE:= libtiff-shared
 LOCAL_PRELINK_MODULE:=false
 include $(BUILD_SHARED_LIBRARY)
@@ -68,11 +69,12 @@ LOCAL_ARM_MODE := arm
 LOCAL_SRC_FILES:= $(LOCAL_TIFF_SRC_FILES)
 LOCAL_C_INCLUDES += \
 					$(LOCAL_PATH)/libtiff \
-					/opt/local/include
+					/usr/local/include
 					#external/zlib \
 					#external/jpeg
 LOCAL_CFLAGS += -DAVOID_TABLES
 LOCAL_CFLAGS += -O3 -fstrict-aliasing -fprefetch-loop-arrays
+LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/libtiff
 LOCAL_STATIC_LIBRARIES := \
 	libjpeg
 LOCAL_SHARED_LIBRARIES := \

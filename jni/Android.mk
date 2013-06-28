@@ -1,8 +1,8 @@
-# C                  opyrieht (C) 2009 The Android Open Source Project
+# Copyright (C) 2009 The Android Open Source Project
 #                    
-# L                  icensed under the Apache License, Version 2.0 (the "License");
-# y                  ou may not use this file except in compliance with the License.
-# Y                  ou may obtain a copy of the License at
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
 #                    
 #                        http://www.apache.org/licenses/LICENSE-2.0
 #                    
@@ -16,7 +16,6 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-Magick_Home := /Users/iphoneteam/sdk/ImageMagick-6.7.2
 LOCAL_MODULE    := android-magick
 LOCAL_SRC_FILES := jmagick.c
 LOCAL_SRC_FILES += magick_DrawInfo.c
@@ -29,17 +28,15 @@ LOCAL_SRC_FILES += magick_PixelPacket.c
 LOCAL_SRC_FILES += magick_QuantizeInfo.c \
 				   magick_MagickBitmap.c
 
-LOCAL_C_INCLUDES += $(Magick_Home)/include/ImageMagick
-LOCAL_CFLAGS += -L$(Magick_Home)/lib
-LOCAL_STATIC_LIBRARIES := MagickCore jpeg coders tiff-static filters
-LOCAL_SHARED_LIBRARIES += MagickCore jpeg coders tiff-static filters
+LOCAL_STATIC_LIBRARIES := jpeg tiff-static filters png coderandmagick
+#LOCAL_SHARED_LIBRARIES += coderandmagick
 
+#LOCAL_SHARED_LIBRARIES := png15 bz2 gomp pthread
 
-#LOCAL_SHARED_LIBRARIES := MagickCore png15 bz2 gomp pthread
-LOCAL_LDLIBS += -L$(LOCAL_PATH)/../lib -lz -lfreetype -lpng -llog
-
+LOCAL_LDLIBS += -lz -llog
 
 include $(BUILD_SHARED_LIBRARY)
 
 $(call import-module,ImageMagick-6.7.3-0)
 $(call import-module,jpeg)
+$(call import-module,png/jni)

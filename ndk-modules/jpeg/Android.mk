@@ -21,5 +21,5 @@ LOCAL_SRC_FILES := jaricom.c jcapimin.c jcapistd.c jcarith.c jccoefct.c jccolor.
         jquant2.c jutils.c jmemmgr.c \
 	jmemnobs.c
 
-
+LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)
 include $(BUILD_STATIC_LIBRARY)

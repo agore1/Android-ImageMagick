@@ -106,13 +106,25 @@ LOCAL_SRC_FILES := PreRvIcccm.c \
                    xml-tree.c \
                    xwindow.c \
 
-LOCAL_C_INCLUDES += $(LOCAL_PATH)/.. /opt/local/include /opt/local/include/freetype2 /usr/local/include/ImageMagick
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/.. \
+                        /usr/local/include \
+                        /usr/local/include/freetype2 \
+                        /usr/local/include/ImageMagick
+#Not the right fix, just put path to 
 LOCAL_CFLAGS += -DHAVE_CONFIG_H
-LOCAL_LDLIBS += -L$(LOCAL_PATH)/../lib -lfreetype -lpng -lz
-LOCAL_STATIC_LIBRARIES += png freetype jpeg coders tiff-static filters
-LOCAL_SHARED_LIBRARIES += png freetype jpeg coders tiff-static filters
+LOCAL_LDLIBS += -L$(LOCAL_PATH)/../lib -lfreetype -lpng -lz 
+#LOCAL_LDLIBS += -L$(LOCAL_PATH)/../coders -lcoders
+#Austin -- tried below statments, didn't make a difference. 
+LOCAL_EXPORT_CINCLUDES := $(LOCAL_PATH)
+#Austin -- turning below on will force parent modules to look for the coders library. Trouble is that they aren't finding it. 
+#LOCAL_EXPORT_LDLIBS += -lcoders
+LOCAL_STATIC_LIBRARIES += coders png freetype jpeg tiff-static filters
+#Comment out below and see what happens!
+LOCAL_SHARED_LIBRARIES += coders png freetype jpeg tiff-shared filters
 
-include $(BUILD_STATIC_LIBRARY)
-#include $(BUILD_SHARED_LIBRARY)
+
+#Austin -- changed below from BUILD_STATIC to BUILD_SHARED
+#include $(BUILD_STATIC_LIBRARY)
+include $(BUILD_SHARED_LIBRARY)
 $(call import-module,jpeg)
 $(call import-module,tiff)

@@ -121,15 +121,21 @@ xwd.c \
 ycbcr.c \
 yuv.c \
 
+#LOCAL_C_INCLUDES += $(LOCAL_PATH)/.. /opt/local/include #/opt/local/include/freetype2 /usr/local/include/ImageMagick-6
 
-LOCAL_C_INCLUDES += $(LOCAL_PATH)/.. /opt/local/include /opt/local/include/freetype2 /usr/local/include/ImageMagick
+
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/.. /usr/local/include /usr/local/include/freetype2 /usr/local/include/ImageMagick-6
+
 LOCAL_CFLAGS += -DHAVE_CONFIG_H
-LOCAL_LDLIBS += -lz -ltiff
-#LOCAL_LDLIBS += -L$(LOCAL_PATH)/../../lib -lfreetype -lpng -ljpeg
-LOCAL_STATIC_LIBRARIES += tiff-static
-#LOCAL_SHARED_LIBRARIES += png freetype jpeg
+#Austin -- Commented below out, and replaced with same thing, minus the -ljpeg
+#LOCAL_LDLIBS += -L$(LOCAL_PATH)/../lib -lfreetype -lpng -ljpeg
+LOCAL_LDLIBS += -L$(LOCAL_PATH)/../lib -lfreetype -lpng 
 
-include $(BUILD_STATIC_LIBRARY)
-#include $(BUILD_SHARED_LIBRARY)
-#$(call import-module,jpeg)
+LOCAL_LDLIBS += -lz
+LOCAL_STATIC_LIBRARIES += tiff-static
+LOCAL_SHARED_LIBRARIES += Magickcore png freetype jpeg tiff-shared 
+#Austin -- changed below from BUILD_STATIC to BUILD_SHARED
+#include $(BUILD_STATIC_LIBRARY)
+include $(BUILD_SHARED_LIBRARY)
+$(call import-module,jpeg)
 $(call import-module,tiff)
